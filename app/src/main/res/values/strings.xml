@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Baking</string>
+    <string name="title_recipestep_list">Steps</string>
+    <string name="title_recipestep_detail">RecipeStep Detail</string>
+    <string name="ingredients"><b>ingredients : </b></string>
+    <string name="error_message">Network Error !</string>
+    <string name="next_step">Next Step</string>
+    <string name="prev_step">Previous Step</string>
+    <string name="step">&#160;Step&#160;</string>
+</resources>
