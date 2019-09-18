@@ -18,10 +18,13 @@ import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
+import com.google.android.exoplayer2.Player.EventListener;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
@@ -29,7 +32,7 @@ import com.google.android.exoplayer2.util.Util;
 import com.google.gson.Gson;
 
 
-public class RecipeDetailFragment extends Fragment implements ExoPlayer.EventListener, View.OnClickListener {
+public class RecipeDetailFragment extends Fragment implements EventListener, View.OnClickListener {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -43,6 +46,11 @@ public class RecipeDetailFragment extends Fragment implements ExoPlayer.EventLis
     private StepsItem mCurrentStepItem;
 
     int recipePos = 0, stepPos = 0, stepSize = 0;
+
+    @Override
+    public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+
+    }
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -84,7 +92,6 @@ public class RecipeDetailFragment extends Fragment implements ExoPlayer.EventLis
             MediaSource mediaSource = new ExtractorMediaSource(uri, new DefaultDataSourceFactory(
                     getContext(), userAgent), new DefaultExtractorsFactory(), null, null);
             mExoplayer.prepare(mediaSource);
-            mExoplayer.setPlayWhenReady(true);
 
 
     }
@@ -108,9 +115,14 @@ public class RecipeDetailFragment extends Fragment implements ExoPlayer.EventLis
 
     void updateView() {
         mStepDescriptionTv.setText(mCurrentStepItem.getDescription());
+        if(getResources().getBoolean(R.bool.isTablet))
+        {
+            mStepDescriptionTv.setVisibility(View.VISIBLE);
+        }
         ((RecipeDetailsActivity) getActivity()).getSupportActionBar().setTitle(
                 RecipeViewModel.getInstance(getActivity().getApplication()).getCurrentRecipe(recipePos).getName()  +
                        getString(R.string.step)+ (stepPos+1));
+
         setupPlayer(Uri.parse(mCurrentStepItem.getVideoURL()));
     }
 
