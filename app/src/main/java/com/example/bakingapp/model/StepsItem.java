@@ -1,4 +1,4 @@
-package com.example.bakingapp.data;
+package com.example.bakingapp.model;
 
 import com.google.gson.annotations.SerializedName;
 

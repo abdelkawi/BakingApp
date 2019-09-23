@@ -10,7 +10,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context=".ui.activity.RecipeDetailsActivity">
+    tools:context=".StepListActivity">
 
     <!--
     This layout is a two-pane layout for the Items
@@ -25,28 +25,12 @@
         android:layout_weight="3" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="200dp"
         android:layout_height="match_parent"
-       >
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_recipe_step_list"
-            android:name="com.example.baking.ui.activity.ItemListFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layoutManager="LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_Ingredient"
-            tools:listitem="@layout/recipe_step_list_content">
-
-
-        </androidx.recyclerview.widget.RecyclerView>
-
+        xmlns:tools="http://schemas.android.com/tools"
+        >
         <TextView
             android:id="@+id/tv_Ingredient"
             android:layout_width="wrap_content"
@@ -56,6 +40,21 @@
             android:text="TextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/item_list"
+            android:name="com.example.bakingapp.network.ItemListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Ingredient"
+            tools:context=".StepListActivity"
+            tools:listitem="@layout/step_list_content" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

@@ -2,7 +2,7 @@ package com.example.bakingapp.network;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.bakingapp.data.RecipeItem;
+import com.example.bakingapp.model.RecipeItem;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class BakingRepo {
 
             @Override
             public void onFailure(Call<List<RecipeItem>> call, Throwable t) {
-
+                mutableLiveData.setValue(null);
             }
         });
         return mutableLiveData;

@@ -6,13 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".ui.RecipeDetailFragment">
+    tools:context=".StepDetailFragment">
 
     <TextView
-        android:id="@+id/recipestep_detail"
+        android:id="@+id/tv_recipe_step_detail"
         style="?android:attr/textAppearanceLarge"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
@@ -21,19 +21,21 @@
         android:textIsSelectable="true"
         app:layout_constraintBottom_toTopOf="@+id/tv_prev_step"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ep_video_view" />
+        app:layout_constraintTop_toBottomOf="@+id/ep_video_view"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/ep_video_view"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="500dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
     </com.google.android.exoplayer2.ui.PlayerView>
 
@@ -41,23 +43,25 @@
         android:id="@+id/tv_next_step"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/next_step"
-        android:textStyle="bold"
-        android:textColor="@color/colorAccent"
         android:layout_marginEnd="@dimen/margin_16"
         android:layout_marginBottom="@dimen/margin_16"
+        android:text="@string/next_step"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_prev_step"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
-        android:textStyle="bold"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginBottom="@dimen/margin_16"
         android:text="@string/prev_step"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone" />
 </androidx.constraintlayout.widget.ConstraintLayout>

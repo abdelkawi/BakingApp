@@ -15,6 +15,14 @@
  */
 package com.example.bakingapp.network;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
+import java.util.concurrent.TimeUnit;
+
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -26,10 +34,24 @@ public class NetworkUtils {
     final static String BASE_URL =
             "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/";
     public static Retrofit getClient(){
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .readTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
                 .build();
         return retrofit;
+    }
+
+    public static boolean isConnect(Context context){
+        ConnectivityManager cm =
+                (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+       return activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
     }
 }
