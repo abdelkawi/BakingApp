@@ -1,7 +1,11 @@
 package com.example.bakingapp;
 
+import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -48,6 +52,7 @@ public class RecipeListActivity extends AppCompatActivity implements OnRecipeCli
         if (NetworkUtils.isConnect(this)) {
             recipesViewModel.getRecipesLiveData().observe(this, list -> {
                         if (list != null) {
+                            Log.wtf("xxxxxx",list.toString());
                             adapter.submitList(list);
                             recipesViewModel.insertRecipesToDb();
                             showData();
@@ -110,4 +115,6 @@ public class RecipeListActivity extends AppCompatActivity implements OnRecipeCli
         super.onRestoreInstanceState(savedInstanceState);
         mRecyclerView.getLayoutManager().onRestoreInstanceState(savedInstanceState);
     }
+
+
 }

@@ -1,5 +1,7 @@
 package com.example.bakingapp;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import com.example.bakingapp.model.StepsItem;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import java.util.List;
@@ -39,8 +42,8 @@ public class StepListActivity extends AppCompatActivity {
     private boolean mTwoPane;
     private static RecipeItem mRecipeItem;
     private RecipesViewModel recipesViewModel;
-    private static int sRecipeId=0;
-    private TextView mIngredientsTV ;
+    private static int sRecipeId = 0;
+    private TextView mIngredientsTV;
 
 
     @Override
@@ -48,36 +51,38 @@ public class StepListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_steps_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mIngredientsTV=findViewById(R.id.tv_Ingredient);
+        mIngredientsTV = findViewById(R.id.tv_Ingredient);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
         if (getIntent().getIntExtra(StepDetailFragment.ARG_RECIPE_ID, 0) != 0) {
             sRecipeId = getIntent().getIntExtra(StepDetailFragment.ARG_RECIPE_ID, 0);
         }
-            recipesViewModel = RecipesViewModel.getInstance(getApplication());
-            mRecipeItem = recipesViewModel.getRecipe(sRecipeId);
-            mIngredientsTV.setText(getIngredientsText(mRecipeItem.getIngredients()));
+        recipesViewModel = RecipesViewModel.getInstance(getApplication());
+        mRecipeItem = recipesViewModel.getRecipe(sRecipeId);
+        mIngredientsTV.setText(getIngredientsText(mRecipeItem.getIngredients()));
+        updateWidget();
+        if (findViewById(R.id.item_detail_container) != null) {
+            // The detail container view will be present only in the
+            // large-screen layouts (res/values-w900dp).
+            // If this view is present, then the
+            // activity should be in two-pane mode.
+            mTwoPane = true;
+        }
 
-            if (findViewById(R.id.item_detail_container) != null) {
-                // The detail container view will be present only in the
-                // large-screen layouts (res/values-w900dp).
-                // If this view is present, then the
-                // activity should be in two-pane mode.
-                mTwoPane = true;
-            }
-
-            View recyclerView = findViewById(R.id.item_list);
-            assert recyclerView != null;
-            setupRecyclerView((RecyclerView) recyclerView);
+        View recyclerView = findViewById(R.id.item_list);
+        assert recyclerView != null;
+        setupRecyclerView((RecyclerView) recyclerView);
 
 
     }
+
     String getIngredientsText(List<IngredientsItem> ingredientsItems) {
         String ingredientsTxt = getString(R.string.ingredients) + "\n";
         for (IngredientsItem ingredientsItem : ingredientsItems)
             ingredientsTxt += ingredientsItem.getQuantity() + " " + ingredientsItem.getMeasure() + " " + ingredientsItem.getIngredient() + "\n";
         return ingredientsTxt;
     }
+
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, mRecipeItem.getSteps(), mTwoPane));
     }
@@ -131,7 +136,7 @@ public class StepListActivity extends AppCompatActivity {
             holder.mContentView.setText(mValues.get(position).getShortDescription());
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
-            if(mTwoPane&&position==0){
+            if (mTwoPane && position == 0) {
                 holder.itemView.performClick();
             }
         }
@@ -149,5 +154,14 @@ public class StepListActivity extends AppCompatActivity {
                 mContentView = (TextView) view.findViewById(R.id.content);
             }
         }
+    }
+
+    void updateWidget() {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        int appWidgetId[] = appWidgetManager.getAppWidgetIds(new ComponentName(this, BakingWidgetProvider.class));
+        RemoteViews views = new RemoteViews(this.getPackageName(),
+                R.layout.baking_widget_provider);
+        views.setTextViewText(R.id.ingredientList, getIngredientsText(mRecipeItem.getIngredients()));
+        appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 }

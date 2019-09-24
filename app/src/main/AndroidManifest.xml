@@ -11,11 +11,12 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".StepListActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".RecipeDetailActivity"
-            android:parentActivityName=".StepListActivity"
             android:configChanges="orientation|screenSize|layoutDirection"
+            android:parentActivityName=".StepListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -28,6 +29,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".BakingWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/baking_widget_provider_info" />
+        </receiver>
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
