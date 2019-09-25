@@ -1,5 +1,6 @@
 package com.example.bakingapp;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -161,7 +162,12 @@ public class StepListActivity extends AppCompatActivity {
         int appWidgetId[] = appWidgetManager.getAppWidgetIds(new ComponentName(this, BakingWidgetProvider.class));
         RemoteViews views = new RemoteViews(this.getPackageName(),
                 R.layout.baking_widget_provider);
-        views.setTextViewText(R.id.ingredientList, getIngredientsText(mRecipeItem.getIngredients()));
+        views.setTextViewText(R.id.tv_ingredient, getIngredientsText(mRecipeItem.getIngredients()));
+        Intent intent = new Intent(this, StepListActivity.class);
+        intent.putExtra(StepDetailFragment.ARG_RECIPE_ID, mRecipeItem.getId());
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        views.setOnClickPendingIntent(R.id.tv_ingredient, pendingIntent);
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
+
 }

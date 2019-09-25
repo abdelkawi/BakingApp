@@ -1,12 +1,14 @@
-package com.example.bakingapp.ui.activity;
+package com.example.bakingapp;
 
-import androidx.test.core.app.ApplicationProvider;
+
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.RootMatchers;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
 
 import com.example.bakingapp.R;
+import com.example.bakingapp.StepListActivity;
 
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -18,14 +20,14 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4ClassRunner.class)
 public class RecipeDetailsTest {
     @Rule
-    public ActivityTestRule<RecipeDetailsActivity> mRecipeDetailActivity = new ActivityTestRule<>(RecipeDetailsActivity.class);
+    public ActivityTestRule<StepListActivity> mRecipeDetailActivity = new ActivityTestRule<>(StepListActivity.class);
     @Test
     public void reipeDetailTest(){
         onView(withId(R.id.tv_Ingredient)).check(matches(isDisplayed()));
-        onView(withId(R.id.rv_recipe_step_list))
+        onView(withId(R.id.item_list))
                 .inRoot(RootMatchers.withDecorView(Matchers.is(mRecipeDetailActivity.getActivity().getWindow().getDecorView()))).
                 perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
 
