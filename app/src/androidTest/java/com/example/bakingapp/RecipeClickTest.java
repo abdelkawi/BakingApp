@@ -14,8 +14,7 @@ import static androidx.test.espresso.action.ViewActions.*;
 
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 
-import com.example.bakingapp.R;
-import com.example.bakingapp.RecipeListActivity;
+import com.example.bakingapp.ui.RecipeListActivity;
 
 
 import org.hamcrest.Matchers;
@@ -23,8 +22,6 @@ import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.regex.Matcher;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)

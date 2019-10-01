@@ -1,8 +1,5 @@
-package com.example.bakingapp;
+package com.example.bakingapp.ui;
 
-import android.app.PendingIntent;
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bakingapp.R;
+import com.example.bakingapp.viewmodel.RecipesViewModel;
 import com.example.bakingapp.interfaces.OnRecipeClicked;
 import com.example.bakingapp.network.NetworkUtils;
 import com.google.android.material.snackbar.Snackbar;

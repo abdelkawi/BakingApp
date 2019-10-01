@@ -10,7 +10,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context=".StepListActivity">
+    tools:context=".ui.StepListActivity">
 
     <!--
     This layout is a two-pane layout for the Items
@@ -53,7 +53,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_Ingredient"
-            tools:context=".StepListActivity"
+            tools:context=".ui.StepListActivity"
             tools:listitem="@layout/step_list_content" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

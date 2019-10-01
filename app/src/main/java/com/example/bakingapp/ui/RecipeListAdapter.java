@@ -1,4 +1,4 @@
-package com.example.bakingapp;
+package com.example.bakingapp.ui;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bakingapp.R;
 import com.example.bakingapp.model.RecipeItem;
 import com.example.bakingapp.interfaces.OnRecipeClicked;
 

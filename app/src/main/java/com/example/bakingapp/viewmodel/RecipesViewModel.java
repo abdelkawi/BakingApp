@@ -1,11 +1,8 @@
-package com.example.bakingapp;
+package com.example.bakingapp.viewmodel;
 
 import android.app.Application;
-import android.os.Handler;
-import android.os.Looper;
 
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -18,7 +15,6 @@ import com.example.bakingapp.model.RecipeItem;
 import com.example.bakingapp.network.BakingRepo;
 
 import java.util.List;
-import java.util.concurrent.Executor;
 
 public class RecipesViewModel extends AndroidViewModel {
     private BakingRepo bakingRepo;

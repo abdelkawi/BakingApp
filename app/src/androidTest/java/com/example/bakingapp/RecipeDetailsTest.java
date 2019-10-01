@@ -7,8 +7,7 @@ import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
 
-import com.example.bakingapp.R;
-import com.example.bakingapp.StepListActivity;
+import com.example.bakingapp.ui.StepListActivity;
 
 import org.hamcrest.Matchers;
 import org.junit.Rule;

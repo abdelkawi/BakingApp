@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@android:color/white"
-    tools:context=".StepDetailFragment">
+    tools:context=".ui.StepDetailFragment">
 
     <TextView
         android:id="@+id/tv_recipe_step_detail"

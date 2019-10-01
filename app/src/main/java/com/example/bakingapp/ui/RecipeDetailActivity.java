@@ -1,4 +1,4 @@
-package com.example.bakingapp;
+package com.example.bakingapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;
 
 import android.view.MenuItem;
-import android.widget.Toast;
+
+import com.example.bakingapp.R;
 
 /**
  * An activity representing a single Item detail screen. This

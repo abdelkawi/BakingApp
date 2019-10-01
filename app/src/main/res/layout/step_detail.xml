@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".StepDetailFragment">
+    tools:context=".ui.StepDetailFragment">
 
     <TextView
         android:id="@+id/tv_recipe_step_detail"
@@ -29,6 +29,7 @@
         android:layout_width="0dp"
         android:layout_height="300dp"
         android:layout_marginStart="8dp"
+        app:controller_layout_id="@layout/custom_exo_playback"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"

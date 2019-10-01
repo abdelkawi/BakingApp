@@ -1,26 +1,27 @@
-package com.example.bakingapp;
+package com.example.bakingapp.ui;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.bakingapp.R;
+import com.example.bakingapp.viewmodel.RecipesViewModel;
 import com.example.bakingapp.model.IngredientsItem;
 import com.example.bakingapp.model.RecipeItem;
 import com.example.bakingapp.model.StepsItem;
+import com.example.bakingapp.widget.BakingWidget;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import java.util.List;
@@ -46,13 +47,16 @@ public class StepListActivity extends AppCompatActivity {
     private static int sRecipeId = 0;
     private TextView mIngredientsTV;
 
-
+    SharedPreferences sharedPreferences ;
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_steps_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mIngredientsTV = findViewById(R.id.tv_Ingredient);
+       sharedPreferences = getSharedPreferences(StepDetailFragment.ARG_RECIPE_ID,MODE_PRIVATE);
+       editor = sharedPreferences.edit();
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
         if (getIntent().getIntExtra(StepDetailFragment.ARG_RECIPE_ID, 0) != 0) {
@@ -61,7 +65,10 @@ public class StepListActivity extends AppCompatActivity {
         recipesViewModel = RecipesViewModel.getInstance(getApplication());
         mRecipeItem = recipesViewModel.getRecipe(sRecipeId);
         mIngredientsTV.setText(getIngredientsText(mRecipeItem.getIngredients()));
+        editor.putInt(StepDetailFragment.ARG_RECIPE_ID,sRecipeId);
+        editor.commit();
         updateWidget();
+
         if (findViewById(R.id.item_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
@@ -74,6 +81,12 @@ public class StepListActivity extends AppCompatActivity {
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
 
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
     }
 
@@ -158,16 +171,14 @@ public class StepListActivity extends AppCompatActivity {
     }
 
     void updateWidget() {
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
-        int appWidgetId[] = appWidgetManager.getAppWidgetIds(new ComponentName(this, BakingWidgetProvider.class));
-        RemoteViews views = new RemoteViews(this.getPackageName(),
-                R.layout.baking_widget_provider);
-        views.setTextViewText(R.id.tv_ingredient, getIngredientsText(mRecipeItem.getIngredients()));
-        Intent intent = new Intent(this, StepListActivity.class);
-        intent.putExtra(StepDetailFragment.ARG_RECIPE_ID, mRecipeItem.getId());
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        views.setOnClickPendingIntent(R.id.tv_ingredient, pendingIntent);
-        appWidgetManager.updateAppWidget(appWidgetId, views);
+        Intent intent = new Intent(this, BakingWidget.class);
+        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+        int ids[] = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication()
+                , BakingWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        sendBroadcast(intent);
+
     }
+
 
 }

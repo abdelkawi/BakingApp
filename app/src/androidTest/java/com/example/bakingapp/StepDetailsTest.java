@@ -1,22 +1,14 @@
 package com.example.bakingapp;
 
-import android.content.Intent;
-
 
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
-import com.example.bakingapp.R;
-import com.example.bakingapp.RecipeDetailActivity;
-
-import org.junit.Before;
+import com.example.bakingapp.ui.RecipeDetailActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.time.Instant;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;

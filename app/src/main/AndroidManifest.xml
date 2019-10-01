@@ -9,37 +9,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".StepListActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".RecipeDetailActivity"
+            android:name=".ui.StepListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.RecipeDetailActivity"
             android:configChanges="orientation|screenSize|layoutDirection"
-            android:parentActivityName=".StepListActivity"
+            android:parentActivityName=".ui.StepListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.bakingapp.StepListActivity" />
+                android:value="com.example.bakingapp.ui.StepListActivity" />
         </activity>
-        <activity android:name=".RecipeListActivity">
+        <activity android:name=".ui.RecipeListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <receiver android:name=".BakingWidgetProvider">
+        <receiver android:name=".widget.BakingWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/baking_widget_provider_info" />
+                android:resource="@xml/baking_widget_info" />
         </receiver>
-
+        <service android:name=".widget.MyWidgetRemoteViewsService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"></service>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
